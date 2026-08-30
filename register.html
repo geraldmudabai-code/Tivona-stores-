@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | Tivona Stores</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+  <div class="auth-container">
+    <div class="auth-card">
+      <a href="index.html" class="logo auth-logo">
+        <span class="logo-text">Tivona <span>Stores</span></span>
+      </a>
+      <h2>Create Account</h2>
+      <p class="auth-subtitle">Register as a worker or admin to manage the store</p>
+      
+      <div id="auth-message" class="auth-message" style="display:none;"></div>
+
+      <form id="register-form">
+        <div class="form-group">
+          <label for="reg-name"><i class="fas fa-user"></i> Full Name</label>
+          <input type="text" id="reg-name" placeholder="John Doe" required autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="reg-email"><i class="fas fa-envelope"></i> Email</label>
+          <input type="email" id="reg-email" placeholder="you@example.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="reg-password"><i class="fas fa-lock"></i> Password</label>
+          <input type="password" id="reg-password" placeholder="At least 6 characters" required autocomplete="new-password">
+          <div class="strength-meter" id="password-strength"></div>
+          <span class="strength-text" id="password-strength-text"></span>
+        </div>
+        <div class="form-group">
+          <label for="reg-confirm"><i class="fas fa-lock"></i> Confirm Password</label>
+          <input type="password" id="reg-confirm" placeholder="Repeat password" required autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label for="reg-role"><i class="fas fa-user-tag"></i> Role</label>
+          <select id="reg-role">
+            <option value="worker">Worker</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+      </form>
+
+      <p class="auth-switch">
+        Already have an account? <a href="login.html">Login here</a>
+      </p>
+      
+      <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Store</a>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Email | Tivona Stores</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-page">
+  <div class="auth-container">
+    <div class="auth-card">
+      <a href="index.html" class="logo auth-logo">
+        <span class="logo-text">Tivona <span>Stores</span></span>
+      </a>
+      <h2>Email Verification</h2>
+      <p class="auth-subtitle">Confirming your account…</p>
+
+      <div id="auth-message" class="auth-message" style="display:none;"></div>
+      <div id="verify-loading" style="text-align:center;padding:20px;color:#64748b;">
+        <i class="fas fa-spinner fa-spin" style="font-size:1.5rem;"></i>
+        <p style="margin-top:12px;">Verifying your email…</p>
+      </div>
+      <div id="verify-done" style="display:none;text-align:center;">
+        <p class="auth-switch" style="margin-top:8px;">
+          <a href="login.html" class="btn btn-primary btn-block">Go to Login</a>
+        </p>
+      </div>
+
+      <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Store</a>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/data.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('token') || '';
+      const msgEl = document.getElementById('auth-message');
+      const loading = document.getElementById('verify-loading');
+      const done = document.getElementById('verify-done');
+
+      if (!token) {
+        loading.style.display = 'none';
+        msgEl.style.display = 'block';
+        msgEl.className = 'auth-message error';
+        msgEl.textContent = 'Missing verification token. Please use the link from your email or the server console.';
+        done.style.display = 'block';
+        return;
+      }
+
+      try {
+        const data = await API.verifyEmail(token);
+        loading.style.display = 'none';
+        msgEl.style.display = 'block';
+        msgEl.className = 'auth-message success';
+        msgEl.textContent = data.message || 'Email verified successfully!';
+        done.style.display = 'block';
+      } catch (err) {
+        loading.style.display = 'none';
+        msgEl.style.display = 'block';
+        msgEl.className = 'auth-message error';
+        msgEl.textContent = err.message || 'Verification failed.';
+        done.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

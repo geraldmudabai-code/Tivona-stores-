@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Tivona Stores</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header admin-header">
+    <div class="container header-content">
+      <a href="index.html" class="logo">
+        <span class="logo-text">Tivona <span>Stores</span></span>
+        <span class="admin-badge">Admin</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">View Store</a>
+        <a href="#" class="nav-link active" id="nav-products">Products</a>
+        <a href="#" class="nav-link" id="nav-add">Add Product</a>
+      </nav>
+      <div class="header-actions">
+        <span class="user-info" id="user-info">Admin</span>
+        <button class="btn btn-outline" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <div class="container">
+      <!-- Stats -->
+      <div class="stats-grid" id="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fas fa-box"></i></div>
+          <div class="stat-info">
+            <h3 id="stat-products">0</h3>
+            <p>Total Products</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+          <div class="stat-info">
+            <h3 id="stat-instock">0</h3>
+            <p>In Stock</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange"><i class="fas fa-exclamation-triangle"></i></div>
+          <div class="stat-info">
+            <h3 id="stat-lowstock">0</h3>
+            <p>Low Stock (&lt;10)</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon red"><i class="fas fa-times-circle"></i></div>
+          <div class="stat-info">
+            <h3 id="stat-outofstock">0</h3>
+            <p>Out of Stock</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Management -->
+      <section class="admin-section" id="products-section">
+        <div class="section-header">
+          <h2>Manage Products</h2>
+          <button class="btn btn-primary" id="show-add-form"><i class="fas fa-plus"></i> Add New Product</button>
+        </div>
+        
+        <div class="admin-filters">
+          <input type="text" id="admin-search" placeholder="Search products...">
+          <select id="admin-category-filter">
+            <option value="all">All Categories</option>
+          </select>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="admin-table" id="products-table">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="products-tbody">
+              <!-- Products loaded by JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Add / Edit Product Form -->
+      <section class="admin-section" id="form-section" style="display:none;">
+        <div class="section-header">
+          <h2 id="form-title">Add New Product</h2>
+          <button class="btn btn-outline" id="cancel-form"><i class="fas fa-times"></i> Cancel</button>
+        </div>
+        
+        <form id="product-form" class="product-form">
+          <input type="hidden" id="product-id">
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="product-name">Product Name *</label>
+              <input type="text" id="product-name" required placeholder="e.g. Fresh Apples">
+            </div>
+            <div class="form-group">
+              <label for="product-category">Category *</label>
+              <select id="product-category" required>
+                <option value="">Select Category</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="product-price">Price ($) *</label>
+              <input type="number" id="product-price" step="0.01" min="0" required placeholder="0.00">
+            </div>
+            <div class="form-group">
+              <label for="product-stock">Stock Quantity *</label>
+              <input type="number" id="product-stock" min="0" required placeholder="0">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="product-description">Description</label>
+            <textarea id="product-description" rows="3" placeholder="Product description..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Product Image</label>
+            <div class="image-upload-area">
+              <div class="image-preview" id="image-preview">
+                <i class="fas fa-image"></i>
+                <span>No image selected</span>
+              </div>
+              <div class="image-upload-controls">
+                <label class="btn btn-outline btn-sm upload-btn" for="product-image-file">
+                  <i class="fas fa-upload"></i> Upload from computer
+                </label>
+                <input type="file" id="product-image-file" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+                <button type="button" class="btn btn-sm btn-clear-image" id="clear-image" style="display:none;">
+                  <i class="fas fa-times"></i> Remove
+                </button>
+              </div>
+              <p class="image-or">— or use a URL —</p>
+              <input type="url" id="product-image" placeholder="https://example.com/image.jpg">
+              <small>Upload JPG, PNG, WebP or GIF (max ~1 MB recommended). Or paste an image link.</small>
+            </div>
+            <input type="hidden" id="product-image-data" value="">
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="submit-product">
+              <i class="fas fa-save"></i> Save Product
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

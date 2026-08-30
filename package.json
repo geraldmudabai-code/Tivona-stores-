@@ -1,0 +1,13 @@
+{
+  "name": "tivona-stores",
+  "version": "1.0.0",
+  "description": "A complete, modern e-commerce website built with **HTML, CSS & Vanilla JavaScript**.   No backend required – all data is stored in the browser’s **localStorage**.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
