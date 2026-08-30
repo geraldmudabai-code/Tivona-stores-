@@ -29,7 +29,7 @@ function getStockStatus(stock) {
 }
 
 function formatPrice(price) {
-  return '$' + Number(price).toFixed(2);
+  return '₦' + Number(price).toFixed(2);
 }
 
 function showToast(message, type = 'success') {
